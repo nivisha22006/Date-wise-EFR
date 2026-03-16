@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Expense Tracker</title>
+
+<style>
+
+body{
+background: linear-gradient(to right, #74ebd5, #ACB6E5);
+font-family: Arial;
+text-align:center;
+}
+
+table{
+margin:auto;
+background:white;
+}
+
+h2{
+color:#333;
+}
+
+button{
+padding:10px;
+margin:5px;
+}
+
+input{
+padding:5px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Expense Tracker</h2>
+
+<h3>Add Expense</h3>
+
+Title: <input type="text" id="title"><br><br>
+Amount: <input type="number" id="amount"><br><br>
+Date: <input type="date" id="date"><br><br>
+
+<button onclick="addExpense()">Add Expense</button>
+
+<br><br>
+
+<button onclick="showExpenses()">Today</button>
+<button onclick="showExpenses()">This Week</button>
+<button onclick="showExpenses()">This Month</button>
+
+<br><br>
+
+<table border="1">
+
+<tr>
+<th>Title</th>
+<th>Amount</th>
+<th>Date</th>
+</tr>
+
+<tbody id="result"></tbody>
+
+</table>
+
+<script>
+
+let expenses = [
+{title:"Food", amount:200, date:"2026-03-14"},
+{title:"Bus", amount:50, date:"2026-03-13"},
+{title:"Shopping", amount:1000, date:"2026-03-12"},
+{title:"Movie", amount:300, date:"2026-03-11"},
+{title:"Travel", amount:150, date:"2026-03-10"},
+{title:"Snacks", amount:80, date:"2026-03-09"}
+];
+
+function addExpense(){
+
+let title = document.getElementById("title").value;
+let amount = document.getElementById("amount").value;
+let date = document.getElementById("date").value;
+
+expenses.unshift({title:title, amount:amount, date:date});
+
+showExpenses();
+
+}
+
+function showExpenses(){
+
+let output="";
+let today = new Date();
+
+expenses.forEach(e=>{
+
+let expenseDate = new Date(e.date);
+
+if(expenseDate <= today){
+
+output += `
+<tr>
+<td>${e.title}</td>
+<td>${e.amount}</td>
+<td>${e.date}</td>
+</tr>
+`;
+
+}
+
+});
+
+document.getElementById("result").innerHTML = output;
+
+}
+
+showExpenses();
+
+</script>
+
+</body>
+</html>
